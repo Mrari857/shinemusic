@@ -32,9 +32,7 @@
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 6px;
-    text-shadow:
-      0 0 5px #00ffcc,
-      0 0 10px #00ffcc;
+    text-shadow: 0 0 5px #00ffcc;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,15 +91,15 @@
 
     <div id="volWrap">
       🔊
-      <input type="range" id="volume" min="0" max="1" step="0.01" value="0">
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
     </div>
   </div>
 
   <input type="range" id="progress" value="0" min="0" step="1">
 </div>
 
-<audio id="audio" autoplay muted loop>
-  <source src="DXNOHU_-_VOID_Super_Slowed_(mp3.pm).mp3" type="audio/mpeg">
+<audio id="audio" autoplay loop>
+  <source src="https://raw.githubusercontent.com/Mrari857/shinemusic/main/DXNOHU_-_VOID_Super_Slowed_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -110,12 +108,12 @@
   const progress = document.getElementById("progress");
   const volume = document.getElementById("volume");
 
-  // Required for autoplay
-  audio.volume = 0;
+  // Set volume to 100% from the start
+  audio.volume = 1;
+  audio.muted = false;
 
   playPause.onclick = () => {
     if (audio.paused) {
-      audio.muted = false;
       audio.play();
       playPause.textContent = "⏸";
     } else {
@@ -125,7 +123,6 @@
   };
 
   volume.oninput = () => {
-    audio.muted = false;
     audio.volume = volume.value;
   };
 
