@@ -89,18 +89,18 @@
   <div id="title">DXNOHU — VOID (Super Slowed)</div>
 
   <div id="controls">
-    <button id="playPause">▶</button>
+    <button id="playPause">⏸</button>
 
     <div id="volWrap">
       🔊
-      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0">
     </div>
   </div>
 
   <input type="range" id="progress" value="0" min="0" step="1">
 </div>
 
-<audio id="audio">
+<audio id="audio" autoplay muted loop>
   <source src="DXNOHU_-_VOID_Super_Slowed_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
@@ -110,10 +110,12 @@
   const progress = document.getElementById("progress");
   const volume = document.getElementById("volume");
 
-  audio.volume = volume.value;
+  // Required for autoplay
+  audio.volume = 0;
 
   playPause.onclick = () => {
     if (audio.paused) {
+      audio.muted = false;
       audio.play();
       playPause.textContent = "⏸";
     } else {
@@ -123,6 +125,7 @@
   };
 
   volume.oninput = () => {
+    audio.muted = false;
     audio.volume = volume.value;
   };
 
@@ -141,3 +144,4 @@
 
 </body>
 </html>
+
