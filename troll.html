@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Neon Player</title>
+
 <style>
   body {
     margin: 0;
@@ -81,10 +82,11 @@
   }
 </style>
 </head>
+
 <body>
 
 <div id="player">
-  <div id="title">Hwungii, DJ VGK1 — VOCE NA MIRA</div>
+  <div id="title">DXNOHU — VOID (Super Slowed)</div>
 
   <div id="controls">
     <button id="playPause">▶</button>
@@ -99,7 +101,7 @@
 </div>
 
 <audio id="audio">
-  <source src="https://raw.githubusercontent.com/Mrari857/Music/main/hwungii-dj-vgk1-voce-na-mira-456902887_cd0539a6.mp3" type="audio/mpeg">
+  <source src="DXNOHU_-_VOID_Super_Slowed_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -120,7 +122,9 @@
     }
   };
 
-  volume.oninput = () => audio.volume = volume.value;
+  volume.oninput = () => {
+    audio.volume = volume.value;
+  };
 
   audio.addEventListener("loadedmetadata", () => {
     progress.max = Math.floor(audio.duration);
