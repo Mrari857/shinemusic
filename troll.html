@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Player</title>
+<style>
+  body {
+    margin: 0;
+    width: 240px;
+    height: 110px;
+    background: radial-gradient(circle at top, #0a0a0a, #000);
+    font-family: system-ui, sans-serif;
+    color: #eaffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #player {
+    width: 225px;
+    padding: 8px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.6);
+    box-shadow:
+      0 0 10px #00ffcc,
+      0 0 20px rgba(0,255,204,0.4),
+      inset 0 0 10px rgba(0,255,204,0.15);
+  }
+
+  #title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-shadow:
+      0 0 5px #00ffcc,
+      0 0 10px #00ffcc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  button {
+    background: black;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 6px #00ffcc;
+  }
+
+  button:hover {
+    background: #00ffcc;
+    color: black;
+  }
+
+  #volWrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #c77dff;
+    text-shadow: 0 0 6px #c77dff;
+  }
+
+  #volume {
+    width: 70px;
+    accent-color: #c77dff;
+  }
+
+  #progress {
+    width: 100%;
+    margin-top: 6px;
+    accent-color: #00ffcc;
+  }
+</style>
+</head>
+<body>
+
+<div id="player">
+  <div id="title">Hwungii, DJ VGK1 — VOCE NA MIRA</div>
+
+  <div id="controls">
+    <button id="playPause">▶</button>
+
+    <div id="volWrap">
+      🔊
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.7">
+    </div>
+  </div>
+
+  <input type="range" id="progress" value="0" min="0" step="1">
+</div>
+
+<audio id="audio">
+  <source src="https://raw.githubusercontent.com/Mrari857/Music/main/hwungii-dj-vgk1-voce-na-mira-456902887_cd0539a6.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById("audio");
+  const playPause = document.getElementById("playPause");
+  const progress = document.getElementById("progress");
+  const volume = document.getElementById("volume");
+
+  audio.volume = volume.value;
+
+  playPause.onclick = () => {
+    if (audio.paused) {
+      audio.play();
+      playPause.textContent = "⏸";
+    } else {
+      audio.pause();
+      playPause.textContent = "▶";
+    }
+  };
+
+  volume.oninput = () => audio.volume = volume.value;
+
+  audio.addEventListener("loadedmetadata", () => {
+    progress.max = Math.floor(audio.duration);
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    progress.value = Math.floor(audio.currentTime);
+  });
+
+  progress.oninput = () => {
+    audio.currentTime = progress.value;
+  };
+</script>
+
+</body>
+</html>
